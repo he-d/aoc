@@ -1,0 +1,67 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Solution {
+    public static boolean isSortedAscending(List<Integer> list) {
+        boolean result = false;
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) < list.get(i - 1)) {
+                return result;
+            }
+        }
+        result = true;
+        return result;
+    }
+
+    public static boolean isSortedDescending(List<Integer> list) {
+        boolean result = false;
+        for (int i = 1; i < list.size(); i++) {
+            if (list.get(i) > list.get(i - 1)) {
+                return result;
+            }
+        }
+         result = true;
+        return result;
+    }
+
+    public static boolean checkReportSafety(List<Integer> report) {
+        int distanceLimit = 3;
+        boolean result = false;
+        if (isSortedAscending(report) || isSortedDescending(report)) {
+            for (int i = 1; i < report.size(); i++) {
+                if (((Math.abs(report.get(i) - report.get(i - 1)) > distanceLimit) ||
+                        (report.get(i).equals(report.get(i - 1))))) {
+                    return result;
+                }
+            }
+            return true;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String inputFile = "src/input.txt";
+        int noOfSafeReports = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                List<Integer> report = Arrays.stream(line.trim().split("\\s+"))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+
+                if (checkReportSafety(report)) {
+                    noOfSafeReports++;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file" + e.getMessage());
+        }
+
+        System.out.println("Number of safe reports: " + noOfSafeReports);
+    }
+}

@@ -31,7 +31,6 @@ int main() {
   int totalDistance = 0;
   for (size_t i = 0; i < list1.size(); ++i) {
     totalDistance += abs(list1[i] - list2[i]);
-    //totalDistance += abs(static_cast<int>(list1[i] - list2[i]));
   }
 
   cout << "Total distance: " << totalDistance << endl;
