@@ -13,7 +13,6 @@ int main() {
     return 1;
   }
 
-  string line = "";
   vector<int> list1;
   vector<int> list2;
   int num1 = 0;
